@@ -1,13 +1,752 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Russo+One&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Gloria+Hallelujah&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Marck+Script&display=swap');
+
 body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+	margin: 0;
+	padding: 0;
+	height: 100vh;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-family: 'Gloria Hallelujah', cursive;
+	overflow-y: hidden;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+input {
+	display: none;
 }
+
+img {
+	width: 100%;
+	height: 100%;
+}
+
+.book {
+	display: flex;
+}
+
+#cover {
+	width: 40vw;
+	height: 80vh;
+	box-sizing: border-box;
+	border: 5px solid rgb(6, 6, 100);
+}
+
+.flip-book {
+	width: 40vw;
+	height: 80vh;
+	position: relative;
+	perspective: 1500px;
+}
+
+.flip {
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	top: 0;
+	left: 0;
+	transform-origin: left;
+	transform-style: preserve-3d;
+	transform: rotateY(0deg);
+	transition: .5s;
+	color: #000;
+}
+
+p {
+	font-size: 29px;
+	letter-spacing: 1px;
+	word-spacing: 2px;
+	line-height: 35px;
+	font-family: 'Russo One', sans-serif;
+	-webkit-text-stroke: 2px black;
+	display: flex;
+	text-align: center;
+	justify-content: center;
+	color: white;
+}
+
+.front {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	top: 0;
+	left: 0;
+	box-sizing: border-box;
+	padding: 0 13px;
+	box-shadow: inset 20px 0 50px rgba(0, 0, 0, 0.5) 0 2px 5px rgba(0, 0, 0, .5);
+	background-image: url("https://img.freepik.com/free-vector/comic-style-wallpaper_79603-1248.jpg?w=2000");
+	border: 5px solid yellow;
+	background-size: 100% 100%;
+	z-index: 2;
+	display: flex;
+	justify-content: center;
+	flex-direction: column;
+}
+
+.back {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	top: 0;
+	left: 0;
+	z-index: 99;
+	box-sizing: border-box;
+	transform: rotateY(180deg);
+	backface-visibility: hidden;
+	background: #000;
+	border: 5px solid rgb(6, 6, 100);
+	z-index: 3;
+}
+
+.next-btn {
+	position: absolute;
+	bottom: 13px;
+	right: 20px;
+	cursor: pointer;
+	font-size: 30px;
+	color: rgb(218, 165, 32);
+	font-family: 'Russo One', sans-serif;
+	-webkit-text-stroke: 2px black;
+	color: white;
+	font-size: 24px;
+	letter-spacing: 1px;
+	word-spacing: 2px;
+	line-height: 40px;
+	z-index: 2;
+}
+
+.next-btn:hover {
+	transform: scale(1.1);
+	transition: .5s;
+}
+
+.backBtnFront {
+	position: absolute;
+	bottom: 13px;
+	left: 20px;
+	cursor: pointer;
+	font-size: 30px;
+	color: rgb(218, 165, 32);
+	font-family: 'Russo One', sans-serif;
+	-webkit-text-stroke: 2px black;
+	color: white;
+	font-size: 24px;
+	letter-spacing: 1px;
+	word-spacing: 2px;
+	line-height: 40px;
+	z-index: 2;
+	display: none;
+}
+
+.backBtnFront:hover {
+	transform: scale(1.1);
+	transition: .5s;
+}
+
+.back-btn {
+	position: absolute;
+	bottom: 13px;
+	right: 20px;
+	cursor: pointer;
+	font-size: 30px;
+	color: rgb(218, 165, 32);
+	font-family: 'Russo One', sans-serif;
+	-webkit-text-stroke: 2px black;
+	color: white;
+	font-size: 24px;
+	letter-spacing: 1px;
+	word-spacing: 2px;
+	line-height: 40px;
+	z-index: 5;
+}
+
+.back-btn:hover {
+	transform: scale(1.1);
+	transition: .5s;
+}
+
+#p1 {
+	z-index: 4;
+}
+
+#p2 {
+	z-index: 3;
+}
+
+#p3 {
+	z-index: 2;
+}
+
+#p4 {
+	z-index: 1;
+}
+
+#c1:checked~.flip-book #p1 {
+	transform: rotateY(-180deg);
+	z-index: 1;
+}
+
+#c2:checked~.flip-book #p2 {
+	transform: rotateY(-180deg);
+	z-index: 2;
+}
+
+#c3:checked~.flip-book #p3 {
+	transform: rotateY(-180deg);
+	z-index: 3;
+}
+
+#c4:checked~.flip-book #p4 {
+	transform: rotateY(-180deg);
+	z-index: 4;
+}
+
+h2 {
+	font-size: 40px;
+	letter-spacing: 1px;
+	word-spacing: 2px;
+	line-height: 24px;
+	font-family: 'Russo One', sans-serif;
+	-webkit-text-stroke: 2px black;
+	display: flex;
+	text-align: center;
+	justify-content: center;
+	color: white;
+}
+
+.bImg {
+	position: fixed;
+	height: 100vh;
+	width: 100vw;
+	display: flex;
+	z-index: -1;
+	top: 0;
+	left: 0;
+	filter: contrast(65%)
+}
+
+.languageBtnEnglish {
+	display: flex;
+	border-radius: 50px;
+	height: 10vh;
+	width: 40vh;
+	background-color: rgb(255, 217, 0);
+	text-align: center;
+	justify-content: center;
+	align-items: center;
+	font-size: 30px;
+	font-weight: 600;
+	color: white;
+	cursor: pointer;
+	font-family: 'Gloria Hallelujah', cursive;
+	background-image: URL("./english.png");
+	background-size: 100%;
+	background-position: center;
+	-webkit-transition: background-image 0.2s ease-in-out;
+	transition: background-image 0.2s ease-in-out;
+}
+
+.languageBtnEnglish:hover {
+	background-color: rgb(255, 162, 0);
+	background-image: URL("harley.jpg");
+}
+
+.languageBtnSpanish {
+	display: flex;
+	border-radius: 50px;
+	height: 10vh;
+	width: 40vh;
+	background-color: rgb(255, 217, 0);
+	text-align: center;
+	justify-content: center;
+	align-items: center;
+	font-size: 30px;
+	font-weight: 600;
+	color: black;
+	cursor: pointer;
+	font-family: 'Gloria Hallelujah', cursive;
+	background-image: URL("./spain.png");
+	background-size: 100% 100%;
+	background-repeat: no-repeat;
+	background-position: top;
+	-webkit-transition: all 0.2s ease-in-out;
+	transition: all 0.2s ease-in-out;
+}
+
+.languageBtnSpanish:hover {
+	background-color: rgb(255, 162, 0);
+	background-image: URL("batman.jpg");
+	color: white;
+}
+
+.languageBtnPortuguese {
+	display: flex;
+	border-radius: 50px;
+	height: 10vh;
+	width: 40vh;
+	background-color: rgb(255, 217, 0);
+	text-align: center;
+	justify-content: center;
+	align-items: center;
+	font-size: 30px;
+	font-weight: 600;
+	color: white;
+	cursor: pointer;
+	font-family: 'Gloria Hallelujah', cursive;
+	background-image: URL("./brazil.jpg");
+	background-size: 100%;
+	background-position: center;
+	-webkit-transition: background-image 0.2s ease-in-out;
+	transition: background-image 0.2s ease-in-out;
+}
+
+.languageBtnPortuguese:hover {
+	background-color: rgb(255, 162, 0);
+	background-image: URL("wonderwoman.jpg");
+}
+
+
+a {
+	text-decoration: none;
+}
+
+.languageBtnPositioning {
+	display: flex;
+	justify-content: space-evenly;
+	flex-direction: column;
+	align-items: center;
+}
+
+h1 {
+	font-weight: 900;
+	font-size: 50px;
+	color: white;
+	-webkit-text-stroke: .5px black;
+	text-align: center;
+}
+
+.welcomePositioning {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.languageWallpaper {
+	position: fixed;
+	height: 100vh;
+	width: 100vw;
+	top: 0;
+	left: 0;
+	z-index: -1;
+}
+
+.goBackBtnEnglish {
+	display: flex;
+	border-radius: 50px;
+	height: 10vh;
+	width: 40vh;
+	background-color: rgb(255, 217, 0);
+	text-align: center;
+	justify-content: center;
+	align-items: center;
+	font-size: 30px;
+	font-weight: 600;
+	color: white;
+	cursor: pointer;
+	font-family: 'Gloria Hallelujah', cursive;
+	background-image: URL("./english.png");
+	background-size: 100%;
+	background-position: center;
+	-webkit-transition: background-image 0.2s ease-in-out;
+	transition: background-image 0.2s ease-in-out;
+	top: 0;
+	position: relative;
+
+}
+
+.goBackBtn:hover {
+	background-color: rgb(255, 162, 0);
+	background-image: URL("harley.jpg");
+}
+
+.myBar {
+	display: flex;
+	background-color: darkblue;
+	justify-content: center;
+	height: 7vh;
+	color: white;
+	width: 10vw;
+	text-align: center;
+	align-items: center;
+	clip-path: polygon(53% 0, 53% 0, 100% 48%, 100% 100%, 49% 100%, 0 100%, 0% 50%);
+	cursor: pointer;
+	z-index: 1;
+	transition: .2s ease-out;
+	transform: scaleY(1.5);
+	transform: translateY(25%);
+	z-index: -1;
+}
+
+.myBar:hover {
+	transform: translateY(0%);
+}
+
+.myBarPositioning {
+	display: flex;
+	justify-content: center;
+	gap: 10px;
+	align-items: center;
+	flex-direction: column;
+}
+
+.markersPositioning {
+	display: flex;
+	flex-direction: row;
+	gap: 15px;
+	overflow: hidden;
+	padding-top: 10px;
+}
+
+.techImg {
+	height: 6vh;
+	width: 5vh;
+}
+
+.techContainer {
+	display: grid;
+	grid-template-columns: auto auto auto;
+	justify-content: space-around;
+	background-color: rgba(0, 103, 121, 0.581);
+	border: 4px solid black;
+	border-radius: 15px;
+	height: 40vh;
+}
+
+.techEach {
+	display: flex;
+	flex-direction: row;
+	gap: 5px;
+	justify-content: flex-start;
+	align-items: center;
+}
+
+.techEach:hover {
+	transform: scale(1.1);
+}
+
+h3 {
+	color: white;
+}
+
+.contactImg {
+	height: 6vh;
+	width: 6vh;
+}
+
+.contactPositioning {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	gap: 10px;
+	height: 5vh;
+}
+
+.contactInfoContainer {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	padding-left: 30px;
+	gap: 20px;
+}
+
+.contactRedirect {
+	font-size: 29px;
+	letter-spacing: 1px;
+	word-spacing: 2px;
+	line-height: 35px;
+	font-family: 'Russo One', sans-serif;
+	-webkit-text-stroke: 2px black;
+	display: flex;
+	text-align: center;
+	justify-content: center;
+	align-items: center;
+	color: white;
+	gap: 10px;
+	filter: url("https://img.freepik.com/free-vector/pop-art-comic-background-with-halftone-color-funny-cloud_60438-1750.jpg");
+	cursor: pointer;
+	height: 5vh;
+}
+
+.copiedText {
+	color: white;
+}
+
+.transparentText {
+	color: transparent;
+	user-select: none;
+	cursor: default;
+}
+
+h3 {
+	cursor: default
+}
+
+h4 {
+	cursor: pointer;
+	user-select: none;
+}
+
+.projectsPositioning {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	animation-duration: 1s
+}
+
+@keyframes appear {
+	0% {
+		opacity: 0;
+	}
+
+	100% {
+		opacity: 1;
+	}
+}
+
+.projectsPositioning2 {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	animation-duration: 1s
+}
+
+@keyframes appear2 {
+	0% {
+		opacity: 0;
+	}
+
+	100% {
+		opacity: 1;
+	}
+}
+
+.projectLink {
+	font-size: 25px;
+	letter-spacing: 1px;
+	word-spacing: 2px;
+	line-height: 35px;
+	font-family: 'Russo One', sans-serif;
+	-webkit-text-stroke: 2px black;
+	display: flex;
+	text-align: center;
+	justify-content: center;
+	align-items: center;
+	color: white;
+	gap: 10px;
+	filter: url("https://img.freepik.com/free-vector/pop-art-comic-background-with-halftone-color-funny-cloud_60438-1750.jpg");
+	cursor: pointer;
+}
+
+.projectBtn {
+	display: flex;
+	height: 5vh;
+	width: max-content;
+	border-radius: 10px;
+	align-items: center;
+	cursor: pointer;
+	transition: all .1s ease-in-out;
+}
+
+.projectBtn:hover {
+	transform: scale(1.2);
+}
+
+.projectBtnPositioning {
+	display: flex;
+	gap: 50px;
+	flex-direction: row;
+	align-items: center;
+}
+
+.frontText {
+	font-size: 25px;
+}
+
+.videoIO {
+	width: 430px;
+	height: 240px;
+}
+
+@media (max-width: 1669px) {
+	.videoIO {
+		height: 210px;
+		width: 370px;
+	}
+}
+
+@media (max-width: 1508px) {
+	.videoIO {
+		height: 180px;
+		width: 320px;
+	}
+}
+
+@media (max-width: 1390px) {
+	.book {
+		position: relative;
+		right: 100%;
+	}
+	.front {
+		width: 200%;
+		left: 100%;
+	}
+	.backBtnFront {
+		display: flex;
+	}
+}
+
+@media (max-width: 1258px) {
+	h1 {
+		font-size: 40px;
+	}
+}
+
+@media (max-width: 1033px) {
+	.projectBtn {
+		height: 4vh;
+	}
+}
+
+@media (max-width: 1024px) {
+	h1 {
+		font-size: 35px;
+	}
+	.myBar {
+		width: 13vw
+	}
+}
+
+@media (max-width: 920px) {
+	h1 {
+		font-size: 35px;
+	}
+	.next-btn {
+		font-size: 20px;
+	}
+	.backBtnFront {
+		font-size: 20px;
+	}
+}
+
+@media (max-width: 880px) {
+	h1 {
+		font-size: 30px;
+	}
+}
+
+@media (max-width: 810px) {
+	.next-btn {
+		font-size: 17px;
+	}
+	.backBtnFront {
+		font-size: 17px;
+	}
+	.frontText {
+		font-size: 20px;
+	}
+}
+
+@media (max-width: 760px) {
+	h1 {
+		font-size: 25px;
+	}
+	.next-btn {
+		font-size: 0px;
+	}
+	.backBtnFront {
+		font-size: 0px;
+	}
+	.contactRedirect {
+		font-size: 20px;
+	}
+}
+
+@media (max-width: 670px) {
+	.videoIO {
+		width: 430px;
+		height: 220px;
+	}
+	.projectLink {
+		font-size: 20px;
+	}
+}
+
+@media (max-width: 613px) {
+	.videoIO {
+		width: 400px;
+		height: 200px;
+	}
+}
+
+@media (max-width: 569px) {
+	h1 {
+		font-size: 30px;
+	}
+}
+
+@media (max-width: 550px) {
+	.projectBtnPositioning {
+		flex-direction: column;
+		gap: 10px;
+	}
+}
+
+@media (max-width: 504px) {
+	.videoIO {
+		height: 170px;
+		width: 320px;
+	}
+	h2 {
+		font-size: 30px;
+	}
+}
+
+@media (max-width: 430px) {
+	.videoIO {
+		height: 130px;
+		width: 260px;
+	}
+}
+
+@media (max-width: 410px) {
+	h1 {
+		font-size: 25px;
+	}
+}
+
+@media (max-width: 368px) {
+	.videoIO {
+		height: 100px;
+		width: 200px;
+	}
+}
+
+@media (max-width: 354px) {
+	
+}
+
+@media (max-width: 300px) {
+	h1 {
+		font-size: 30px;
+	}
+}
+
+
+
+
+
+
+
+
